@@ -28,6 +28,9 @@
         <div id="navContent" class="collapse navbar-collapse">
             <ul class="nav mr-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="index.php">Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" href="weather.php">Weather Forecast</a>
                 </li>
                 <li class="nav-item">
