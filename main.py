@@ -11,6 +11,12 @@ import sendgrid
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
+from sendgrid.helpers.mail import *
+
+# from SendGrid's Python Library
+# https://github.com/sendgrid/sendgrid-python
+#from sendgrid import SendGridAPIClient
+#from sendgrid.helpers.mail import Mail
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -156,3 +162,43 @@ class Forecast(webapp2.RequestHandler):
 
         search_template = JINJA_ENVIRONMENT.get_template('forecast.php')
         self.response.write(search_template.render(params))
+
+class Contact(webapp2.RequestHandler):
+    def get(self):
+        #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
+        sg = sendgrid.SendGridAPIClient(api_key='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')
+        from_email = Email("fisherlim20@gmail.com")
+        to_email = To("jasontheodore9@gmail.com")
+        subject = "Sending with SendGrid is Fun"
+        content = Content("text/plain", "and easy to do anywhere, even with Python")
+        mail = Mail(from_email, to_email, subject, content)
+        response = sg.client.mail.send.post(request_body=mail.get())
+        
+        search_template = JINJA_ENVIRONMENT.get_template('contact.php')
+        self.response.write(search_template.render())
+    
+    #message = Mail(
+        #from_email='jasontheodore9@gmail.com',
+        #to_emails='toemail',
+        #subject='subject',
+        #html_content='message')
+    #try:
+        #sg = SendGridAPIClient(os.environ.get('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'))
+        #response = sg.send(message)
+        #print(response.status_code)
+        #print(response.body)
+        #print(response.headers)
+    #except Exception as e:
+        #print(e.message)
+
+
+
+app = webapp2.WSGIApplication([
+    ('/', Main),
+    ('/index.php', Main),
+    ('/weather.php', Weather),
+    ('/location', Location),
+    ('/forecast.php', Forecast),
+    ('/air.php', Air),
+    ('/contact.php', Contact),
+])
