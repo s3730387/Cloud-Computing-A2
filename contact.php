@@ -1,5 +1,7 @@
 <html>
-  <head>
+{% autoescape true %}
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,20 +19,23 @@
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle Navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div id="navContent" class="collapse navbar-collapse">
             <ul class="nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="index.php">Home</a>
+                    <a class="nav-link" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="forecast.php">Weather Forecast</a>
+                    <a class="nav-link" href="weather.php">Weather Forecast</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" href="contact.php">Contact Us</a>
+                    <a class="nav-link text-white" href="air.php">Air Quality</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="contact.php">Contact Us</a>
                 <li>
             </ul>
         </div>
@@ -44,8 +49,8 @@
             <strong> Send Your Enquiries Here </strong>
         </h3>
         <div class="card-body px-lg-5 pt-0">
-            <form action="" method="POST" class="text-center" style="color: #757575;">
-                    
+            <form action="" method="GET" class="text-center" style="color: #757575;">
+
                 <div class="md-form">
                     <input type="text" name="name" class="form-control" placeholder="Name">
                 </div>
@@ -62,54 +67,19 @@
                     <textarea type="text" name="msg" rows="3" placeholder="Message"></textarea>
                 </div>
 
-                <button class="btn btn-info btn-block" type="submit" name="sendemail" >Send</button>
+                <button class="btn btn-info btn-block" type="submit" name="sendemail">Send</button>
 
             </form>
         </div>
 
     </div>
-                
-    <!-- SendGrid API -->
-    <?php
-        require 'vendor/autoload.php';
-
-        // API key from SendGrid
-        $apikey = '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';
-
-        // Connecting contact form to email
-        if(isset($_POST['sendemail']))
-        {
-            $name = $_POST['name'];
-            $email_id = $_POST['email'];
-            $subject = $_POST['subject'];
-            $message = $_POST['msg'];
-
-            // Included in vendor folder
-            $email = new \SendGrid\Mail\Mail();
-            $email->setFrom("s3730387@student.rmit.edu.au", "Jason Chandra");
-            $email->setSubject($subject);
-            $email->addTo($email_id, $name);
-            $email->addContent("text/plain", $message);
-
-            $sendgrid = new \SendGrid($apikey);
-            // Verification if email was sent or not
-            // Provided from SendGrid API
-            try {
-                $response = $sendgrid->send($email);
-                print $response->statusCode() . "\n";
-                print_r($response->headers());
-                print $response->body() . "\n";
-            } catch (Exception $e){
-                echo 'Email exception caught: ' . $e->getMessage() . "\n";
-            }
-
-        }
-    ?>
 
     <!-- Footer -->
     <!-- Double check class name -->
-    <div class="fluid-container bg-dark text-white py-2">
+    <div class="fluid-container bg-dark text-white py-2 navbar-fixed-bottom">
         <h6 class="text-center mb-0">Copyright RMIT © 2020</h6>
     </div>
 </body>
+
 </html>
+{% endautoescape %}
