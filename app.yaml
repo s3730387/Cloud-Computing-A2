@@ -1,12 +1,13 @@
-runtime: php55
+runtime: python27
 api_version: 1
+threadsafe: true
 
 handlers:
-- url: /css
-  static_dir: css
-
-- url: /(.+\.php)$
-  script: \1
-
 - url: /.*
-  script: index.php
+  script: main.app
+  
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest
