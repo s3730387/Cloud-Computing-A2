@@ -27,13 +27,16 @@
         <div id="navContent" class="collapse navbar-collapse">
             <ul class="nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link active text-white" href="index.php">Home</a>
+                    <a class="nav-link active" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="weather.php">Weather Forecast</a>
+                    <a class="nav-link" href="weather.php">Weather Forecast</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="contact.php">Contact Us</a>
+                    <a class="nav-link" href="air.php">Air Quality</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.php">Contact Us</a>
                 <li>
             </ul>
         </div>
