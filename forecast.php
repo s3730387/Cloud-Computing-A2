@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    
+
     <!-- Axios Script -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -22,7 +22,7 @@
 
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle Navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -32,111 +32,67 @@
                     <a class="nav-link text-white" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-white" href="forecast.php">Weather Forecast</a>
+                    <a class="nav-link active text-white" href="weather.php">Weather Forecast</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="contact.php">Contact Us</a>
-                <li>    
+                <li>
             </ul>
         </div>
     </nav>
-    <h1 class="text-center">Weather Forecast</h1>
-        <!-- Geocoding API -->
-        <div class="container">
-        <h2 id="text-center">Enter Address: </h2>
-        <form id="location-form">
-            <input type="text" id="location-input" class="form-control form-control-lg">
-            <br>
-            <button type="submit" class="btn btn-primary btn-block">Submit</button>
-        </form>
-        <div class="card-block" id="formatted-address"></div>
-        <div class="card-block" id="address-components"></div>
-        <div class="card-block" id="geometry"></div>
+
+    <h1 class="text-center">Weather Forecast Data</h1>
+    <br>
+    <h2 class="text-center">{{ address }}</h2>
+
+    <div class="fluid-container mx-sm-5 px-sm-5">
+        <div class="card text-center">
+            <div class="card-header">
+                <h3 id="current"></h3>
+            </div>
+
+            <div class="card-body">
+                <h3>{{ temp }}&deg;C</h3>
+                <h5 class="mb-4">{{ weather_code0 }}</h5>
+
+                <p>
+                    <b>Minimum Temp:</b> {{ temp_min }}&deg;C
+
+                    <br />
+
+                    <b>Maximum Temp:</b> {{ temp_max }}&deg;C
+
+                    <br />
+
+                    <b>Pressure:</b> {{ pressure }}in
+
+                    <br />
+
+                    <b>Humidity:</b> {{ humidity }}&#37;
+
+                    <br />
+
+                    <b>Wind Speed:</b> {{ speed }}m/s
+
+                    <br />
+
+                    <b>Visibility:</b> {{ visibility }}km
+
+                    <br />
+
+                    <b>Sunrise:</b> {{ sunrise }}
+
+                    <br />
+
+                    <b>Sunset:</b> {{ sunset }}
+                </p>
+            </div>
+        </div>
+
     </div>
 
-    <script>
-        // Call Geocode
-        //geocode();
-
-        // Get location form
-        var locationForm = document.getElementById('location-form');
-
-        // Listen for submit
-        locationForm.addEventListener('submit', geocode);
-
-        function geocode(e) {
-            // Prevent actual submit
-            e.preventDefault();
-
-            var location = document.getElementById('location-input').value;
-
-            axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-                    params: {
-                        address: location,
-                        key: 'AIzaSyAvnLiylgVHNl58O1mP0feKX-LCOkfJVR8'
-                    }
-                })
-                .then(function(response) {
-                    // Log full response
-                    console.log(response);
-
-                    // Formatted Address
-                    var formattedAddress = response.data.results[0].formatted_address;
-                    var formattedAddressOutput = `
-          <ul class="list-group">
-            <li class="list-group-item">${formattedAddress}</li>
-          </ul>
-        `;
-
-                    // Address Components
-                    var addressComponents = response.data.results[0].address_components;
-                    var addressComponentsOutput = '<ul class="list-group">';
-                    for (var i = 0; i < addressComponents.length; i++) {
-                        addressComponentsOutput += `
-            <li class="list-group-item"><strong>${addressComponents[i].types[0]}</strong>: ${addressComponents[i].long_name}</li>
-          `;
-                    }
-                    addressComponentsOutput += '</ul>';
-
-                    // important 
-                    var lat = response.data.results[0].geometry.location.lat;
-                    var lng = response.data.results[0].geometry.location.lng;
-                    var geometryOutput = `
-          <ul class="list-group">
-            <li class="list-group-item"><strong>Latitude</strong>: ${lat}</li>
-            <li class="list-group-item"><strong>Longitude</strong>: ${lng}</li>
-          </ul>
-        `;
-
-                    // Output
-                    document.getElementById('formatted-address').innerHTML = formattedAddressOutput;
-                    document.getElementById('address-components').innerHTML = addressComponentsOutput;
-                    document.getElementById('geometry').innerHTML = geometryOutput;
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        }
-
-    </script>
-    <!-- Geocoding API END -->
-
-    <script type="text/javascript" src="https://widgets-viewer.climacell.co/v1/sdk.js">
-        <div class="climacell-widget" data-apikey="Vx0cLUQSWbNuwqmS7OV1xhaKDa0mjADd" 
-            data-type="nowcast" data-location-name="280 Summer Street, Boston, MA 02210, USA" 
-            data-location-lon="-71.04974909999999" 
-            data-location-lat="42.3502782" 
-            data-size-mode="large" data-font-color="#000" 
-            data-background-color="#f6f2f2" 
-            data-font-family="verdana" 
-            data-weather-params="temp:F,precipitation:mm/hr,wind_speed:mph,humidity:%,cloud_cover:%" 
-            data-precipitation-timeline="true" data-allow-users-enter-address="true" >
-        </div>
-    </script>
-    <!-- Climacell API END -->
     <!-- Footer -->
-    <!-- Double check class name -->
-    <div class="fluid-container bg-dark text-white py-2">
+    <div class="fluid-container bg-dark text-white py-2 navbar-fixed-bottom">
         <h6 class="text-center mb-0">Copyright RMIT © 2020</h6>
     </div>
 </body>
