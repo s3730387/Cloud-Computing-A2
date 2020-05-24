@@ -11,9 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <!-- Axios Script -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -53,7 +50,7 @@
 
             <div class="card-body">
                 <h3>{{ temp }}&deg;C</h3>
-                <h5 class="mb-4">{{ weather_code0 }}</h5>
+                <br />
 
                 <p>
                     <b>Minimum Temp:</b> {{ temp_min }}&deg;C
@@ -92,7 +89,7 @@
     </div>
 
     <!-- Footer -->
-    <div class="fluid-container bg-dark text-white py-2 navbar-fixed-bottom">
+    <div class="fluid-container bg-dark text-white py-2 fixed-bottom">
         <h6 class="text-center mb-0">Copyright RMIT © 2020</h6>
     </div>
 </body>
